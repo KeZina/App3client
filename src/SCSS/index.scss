@@ -1,0 +1,39 @@
+@import 'containers';
+@import 'nav';
+@import 'login';
+
+$blue-strong: rgb(2, 70, 97);
+$blue-middle: rgb(170, 230, 253);
+$blue-light: rgb(223, 245, 253);
+
+
+
+// $red-strong: rgb(255, 0, 64);
+// $red-middle: rgb(253, 188, 204);
+// $red-light: rgb(253, 221, 229);
+
+// #blue {
+//     @include nav($blue-strong, $blue-middle, $blue-light)
+// }
+// #red {
+//     @include nav($red-strong, $red-middle, $red-light)
+// }
+
+
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin:0;
+    overflow-x: hidden;
+}
+button, a, input {
+    outline: none;
+}
+
+@mixin general($color-s, $color-m, $color-l) {
+    @include containers($color-s, $color-m, $color-l);
+    @include nav($color-s, $color-m, $color-l);
+    @include login($color-s, $color-m, $color-l);
+}
+
+@include general($blue-strong, $blue-middle, $blue-light)

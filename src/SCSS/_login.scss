@@ -1,0 +1,68 @@
+@mixin login($color-s, $color-m, $color-l) {
+    #login {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba($color-s, $alpha: .8);
+        // button, input {
+        //     outline: none;
+        // }
+        div {
+            position: relative;
+            top: 15vh;
+            margin: auto;
+            width: 10vw;
+            min-height: 30vh;
+            padding: 1vh 1vw;
+            background-color: $color-l;
+            border: 2px solid $color-s;
+            button {
+                position: absolute;
+                left: 12vw;
+                top: -4.5vh;
+                font-size: 2em;
+                background-color: rgba($color: #000000, $alpha: 0);
+                border: none;
+                cursor: pointer;
+                transition-duration: .2s;
+                &:hover {
+                    color: $color-s;
+                }
+            }
+            h2 {
+                margin: 0;
+                margin-bottom: 5vh;
+                text-align: center;
+                border-bottom: 2px solid $color-s;
+            }
+            label {
+                h3 {
+                    text-align: center;
+                    margin: 0;
+                    padding: 1vh 0; 
+                }
+                input {
+                    display: block;
+                    width: 8vw;
+                    height: 2.5vh;
+                    margin: auto;
+                    margin-bottom: 7vh;
+                    border: 2px solid $color-s;
+                }
+            }
+            input[type = "submit"] {
+                display: block;
+                margin: auto;
+                width: 3vw;
+                height: 6vh;
+                font-size: 2em;
+                background-color: $color-m;
+                border: 2px solid $color-s;
+                transition-duration: .2s;
+                &:hover {
+                    color: $color-s;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+@mixin nav($color-s, $color-m, $color-l) {
+    #navigation {
+        position: fixed;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 96vw;
+        min-height: 4vh;
+        padding: 0 2vw;
+        background-color: $color-m;
+        border-bottom: 2px solid $color-s;
+        a {
+            text-decoration: none;
+        }
+        a, button, span{
+            color: $color-s;
+            font-size: 1.2em;
+            margin: 0;
+            padding: .3em;
+        }
+        div {
+            display:flex;
+            align-items: center;
+            button {
+                background-color: inherit;
+                border: none;
+                cursor: pointer;
+                outline: none;
+            }
+        }
+    }
+}

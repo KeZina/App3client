@@ -1,0 +1,16 @@
+@mixin containers($color-s, $color-m, $color-l) {
+    .container-1 {
+        background-color: $color-s;
+        width: 96vw;
+        min-height: 96vh;
+        padding: 4vh 2vw 0 2vw;
+        overflow: hidden;
+    }
+    .container-2 {
+        width: 40vw;
+        height: 92vh;
+        padding: 2vh 1vw;
+        margin: auto;
+        background-color: $color-l;
+    }
+}
