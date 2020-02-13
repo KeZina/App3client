@@ -5,22 +5,21 @@ import Main from './Main';
 import Rooms from './Rooms';
 import useWebSocket from '../hooks/useWebSocket';
 import { UserContext } from '../context';
+import useRedirect from '../hooks/useRedirect';
 
 const App = () => {
-  useWebSocket();
+  const user = useWebSocket()
 
-  const user = {
-    
-  }
+  useRedirect(user);
 
   return (
-    <UserContext>
+    <UserContext.Provider value = {user}>
       <Nav />
       <Switch>
         <Route exact path = '/' component = {Main} />
         <Route exact path = '/rooms' component = {Rooms} />
       </Switch>
-    </UserContext>
+    </UserContext.Provider>
   )
 }
 

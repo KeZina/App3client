@@ -1,12 +1,11 @@
 @mixin login($color-s, $color-m, $color-l) {
     #login {
         position: absolute;
-        width: 100vw;
-        height: 100vh;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         background-color: rgba($color-s, $alpha: .8);
-        // button, input {
-        //     outline: none;
-        // }
         div {
             position: relative;
             top: 15vh;
@@ -16,19 +15,6 @@
             padding: 1vh 1vw;
             background-color: $color-l;
             border: 2px solid $color-s;
-            button {
-                position: absolute;
-                left: 12vw;
-                top: -4.5vh;
-                font-size: 2em;
-                background-color: rgba($color: #000000, $alpha: 0);
-                border: none;
-                cursor: pointer;
-                transition-duration: .2s;
-                &:hover {
-                    color: $color-s;
-                }
-            }
             h2 {
                 margin: 0;
                 margin-bottom: 5vh;
