@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Nav from './Nav';
-import Main from './Main';
+import Login from './Login';
 import Rooms from './Rooms';
 import useWebSocket from '../hooks/useWebSocket';
 import { UserContext } from '../context';
@@ -16,7 +16,7 @@ const App = () => {
     <UserContext.Provider value = {user}>
       <Nav />
       <Switch>
-        <Route exact path = '/' component = {Main} />
+        <Route exact path = '/' component = {Login} />
         <Route exact path = '/rooms' component = {Rooms} />
       </Switch>
     </UserContext.Provider>

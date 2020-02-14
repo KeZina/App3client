@@ -12,9 +12,17 @@ const Nav = () => {
                 {
                     user.authType() &&
                     <div>
-                        <button onClick = {user.logout}>
-                            Logout
-                        </button>
+                        <div>
+                            {
+                                user.authType() === 'perm' && 
+                                <button onClick = {user.deleteAcc}>
+                                    Delete account
+                                </button>
+                            }
+                            <button onClick = {user.logout}>
+                                Logout
+                            </button>
+                        </div>
                         <span>
                             Your name: {user.name}
                         </span>

@@ -23,11 +23,16 @@
         div {
             display:flex;
             align-items: center;
-            button {
-                background-color: inherit;
-                border: none;
-                cursor: pointer;
-                outline: none;
+            div {
+                background-color: $color-s;
+                button {
+                    font-size: 1em;
+                    color: $color-m;
+                    background-color: inherit;
+                    border: none;
+                    cursor: pointer;
+                    outline: none;
+                }
             }
         }
     }

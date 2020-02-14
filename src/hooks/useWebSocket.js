@@ -25,20 +25,46 @@ const useWebSocket = () => {
     const [user, setUser] = useState(anonymous);
     const history = useHistory();
 
+    const createTemp = e => {
+        e.preventDefault();
+        ws.send(JSON.stringify({
+            type: 'createTemp', 
+            name: e.target.name.value
+        }));
+    }
+
+    const createPerm = e => {
+        e.preventDefault();
+        ws.send(JSON.stringify({
+            type: 'createPerm', 
+            name: e.target.name.value,
+            password: e.target.password.value
+        }));
+    }
+
     const login = e => {
         e.preventDefault();
         ws.send(JSON.stringify({
-            type: 'form', 
-            name: e.target.name.value
-        }));
-        console.log(ws)
+            type: 'login',
+            name: e.target.name.value,
+            password: e.target.password.value
+        }))
     }
 
     const logout = () => {
         ws.send(JSON.stringify({
             type: 'logout',
             token: localStorage.getItem('token'),
-            authType: user.authType
+            authType: user.authType()
+        }))
+
+        localStorage.removeItem('token');
+    }
+
+    const deleteAcc = () => {
+        ws.send(JSON.stringify({
+            type: 'deleteAcc',
+            token: localStorage.getItem('token')
         }))
 
         localStorage.removeItem('token');
@@ -79,7 +105,14 @@ const useWebSocket = () => {
                     localStorage.setItem('token', token);
                     setUser({...user, name, auth});
                     history.push('/rooms');
-                } else {
+                } else if(!auth){
+                    console.log(message);
+                }
+            } else if(type === 'login'){
+                if(auth) {
+                    localStorage.setItem('token', token);
+                    setUser({...user, name, auth})
+                } else if(!auth) {
                     console.log(message);
                 }
             } else if(type === 'auth') {
@@ -104,13 +137,15 @@ const useWebSocket = () => {
 
     // just for debug
     useEffect(() => {
-        console.log(user.authType())
         console.log(user)
     })
 
     return {
+        createTemp,
+        createPerm,
         login,
         logout,
+        deleteAcc,
         ...user
     }
 }
