@@ -18,14 +18,16 @@
             color: $color-s;
             font-size: 1.2em;
             margin: 0;
+            padding: 0;
             padding: .3em;
         }
-        div {
+        #right-side {
             display:flex;
             align-items: center;
             div {
                 background-color: $color-s;
                 button {
+                    padding: .3em;
                     font-size: 1em;
                     color: $color-m;
                     background-color: inherit;
@@ -36,11 +38,28 @@
             }
         }
         #center-side {
-            background-color: $color-s;
-            span {
-                font-size: 1em;
-                color: $color-m;
+            display:flex;
+            align-items: center;
+            div {
+                background-color: $color-s;
+                span {
+                    display: inline-block;
+                    font-size: 1em;
+                    color: $color-m;
+                }
             }
+            form {
+                input[type = "text"] {
+                    color: $color-s;
+                    border: 2px solid $color-s;
+                }
+                input[type = "submit"] {
+                    background-color: $color-m;
+                    border: 2px solid $color-s;
+                    border-left: none;
+                }
+            }
+
         }
     }
 }

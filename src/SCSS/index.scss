@@ -2,6 +2,7 @@
 @import 'nav';
 @import 'login';
 @import 'rooms';
+@import 'create-room';
 
 $blue-strong: rgb(2, 70, 97);
 $blue-middle: rgb(170, 230, 253);
@@ -36,6 +37,7 @@ button, a, input {
     @include nav($color-s, $color-m, $color-l);
     @include login($color-s, $color-m, $color-l);
     @include rooms($color-s, $color-m, $color-l);
+    @include create-room($color-s, $color-m, $color-l);
 }
 
 @include general($blue-strong, $blue-middle, $blue-light)

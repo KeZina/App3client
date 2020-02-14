@@ -33,11 +33,11 @@ const Login = () => {
         <div className = 'container-1'>
             <div id = "login">
                 <div>
-                    {
-                        formType.permanent && <h2>Create permanent account</h2> ||
-                        formType.login && <h2>Login</h2> ||
-                        <h2>Create temporary account</h2>
-                    }
+                    
+                    {formType.permanent && <h2>Create permanent account</h2>}
+                    {formType.login && <h2>Login</h2>}
+                    {(!formType.permanent && !formType.login) && <h2>Create temporary account</h2>}
+                    
                     <h4>
                         Don't want to waste your time?
                         <span onClick = {() => handleFormType('temporary')}> Get temporary registry...</span>

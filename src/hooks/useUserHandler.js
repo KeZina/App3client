@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 
 
-const useWebSocket = () => {
+const useUserHandler = (ws) => {
     // state for no-auth users
     const anonymous = ({
         name: null,
@@ -21,8 +21,6 @@ const useWebSocket = () => {
             }
         }
     })
-
-    const [ws, setWs] = useState({});
     const [user, setUser] = useState(anonymous);
     const history = useHistory();
 
@@ -76,11 +74,6 @@ const useWebSocket = () => {
         localStorage.removeItem('token');
     }
 
-    // to avoid reconnect
-    useEffect(() => {
-        setWs(new WebSocket('ws://localhost:3003'))
-    }, [])
-
     // redirect no-auth users to login
     useEffect(() => {
         if(!user.authType()) {
@@ -100,13 +93,14 @@ const useWebSocket = () => {
         }
     })
 
-    // handle server response
+    // handle server response for user
     useEffect(() => {
         ws.onmessage = e => {
             const data = JSON.parse(e.data);
             let {type, auth, token, name, message} = data;
+            console.log(data)
             
-            if(type === 'create') {
+            if(type === 'createUser') {
                 if(auth) {
                     localStorage.setItem('token', token);
                     setUser({...user, name, auth});
@@ -132,12 +126,6 @@ const useWebSocket = () => {
                 }
             }
         }
-        ws.onclose = () => {
-            console.log('disconnected!');
-        }
-        ws.onerror = e => {
-            console.log(e);
-        }
     }, [ws])
 
 
@@ -159,4 +147,5 @@ const useWebSocket = () => {
 
 
 
-export default useWebSocket;
+
+export default useUserHandler;

@@ -1,10 +1,10 @@
 @mixin rooms($color-s, $color-m, $color-l) {
     %buttons {
+        font: inherit;
         display: block;
         margin: auto;
         margin-top: 14vh;
         width: 3vw;
-        height: 6vh;
         font-size: 2em;
         color: $color-s;
         background-color: $color-m;
@@ -23,11 +23,13 @@
         div {
             display:flex;
             justify-content: space-between;
-            button {
+            button, a {
                 @extend %buttons;
                 font-size: 1em;
-                width: 49%;
+                width: 46%;
                 margin: 0;
+                text-decoration: none;
+                cursor: pointer;
                 &:hover {
                     color: initial;
                 }

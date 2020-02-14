@@ -13,12 +13,24 @@ const Nav = () => {
                     user.authType() &&
                     <>
                         <div id = "center-side">
-                            <span>
-                                Total users:
-                            </span>
-                            <span>
-                                Total rooms:
-                            </span>
+                            <div>
+                                <span>
+                                    Total users:
+                                </span>
+                                <span>
+                                    Total rooms:
+                                </span>
+                            </div>
+                            {/* move form into room after */}
+                            <form>
+                                <label>
+                                    <span>
+                                        Invite user:
+                                    </span>
+                                    <input type = "text" minLength = "3" />
+                                </label>
+                                <input type = "submit" value = "+" />
+                            </form>
                         </div>
                         <div id = "right-side">
                             <div>

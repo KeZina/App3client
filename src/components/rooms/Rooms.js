@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Rooms = () => {
     return (
         <div className = 'container-1'>
             <div id = "rooms">
                 <div>
-                    <button>
+                    <Link to = '/rooms/create-room'>
                         Create new room
-                    </button>
+                    </Link>
                     <button>
                         Join existing room
                     </button>
@@ -15,7 +16,7 @@ const Rooms = () => {
 
                 <form>
                     <label>
-                        <h3>Name:</h3>
+                        <h3>Room's name:</h3>
                         <input type = "text" name = "name" minLength = "3" maxLength = "15" />
                     </label>
                     <input type = "submit" value = "&#10004;" />
