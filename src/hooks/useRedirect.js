@@ -6,10 +6,10 @@ import { useHistory } from "react-router-dom";
 const useRedirect = (user) => {
     const history = useHistory();
 
-    useEffect(() => {
-        if(!user.isAuth) history.push('/')
+    // useEffect(() => {
+    //     if(!user.isAuth) history.push('/')
 
-    }, [user.auth, history.location.pathname])
+    // }, [user.auth, history.location.pathname])
 
 }
 

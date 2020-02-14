@@ -10,10 +10,14 @@ const Nav = () => {
             <nav id = "navigation">
                 <Link to = '/rooms'>Rooms</Link>
                 {
-                    user.isAuth &&
-                    // <Logout />
+                    user.authType() &&
                     <div>
-                        <span>Your name: {user.name}</span>
+                        <button onClick = {user.logout}>
+                            Logout
+                        </button>
+                        <span>
+                            Your name: {user.name}
+                        </span>
                     </div>
                 }
             </nav>
