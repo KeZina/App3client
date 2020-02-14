@@ -6,6 +6,7 @@
         bottom: 0;
         left: 0;
         background-color: rgba($color-s, $alpha: .8);
+        // border: 2px solid $color-s;
         div {
             position: relative;
             top: 15vh;
@@ -55,11 +56,12 @@
                 width: 3vw;
                 height: 6vh;
                 font-size: 2em;
+                color: $color-s;
                 background-color: $color-m;
                 border: 2px solid $color-s;
                 transition-duration: .2s;
                 &:hover {
-                    color: $color-s;
+                    color: initial;
                 }
             }
         }

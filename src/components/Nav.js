@@ -11,22 +11,32 @@ const Nav = () => {
                 <Link to = '/rooms'>Rooms</Link>
                 {
                     user.authType() &&
-                    <div>
-                        <div>
-                            {
-                                user.authType() === 'perm' && 
-                                <button onClick = {user.deleteAcc}>
-                                    Delete account
-                                </button>
-                            }
-                            <button onClick = {user.logout}>
-                                Logout
-                            </button>
+                    <>
+                        <div id = "center-side">
+                            <span>
+                                Total users:
+                            </span>
+                            <span>
+                                Total rooms:
+                            </span>
                         </div>
-                        <span>
-                            Your name: {user.name}
-                        </span>
-                    </div>
+                        <div id = "right-side">
+                            <div>
+                                {
+                                    user.authType() === 'perm' && 
+                                    <button onClick = {user.deleteAcc}>
+                                        Delete account
+                                    </button>
+                                }
+                                <button onClick = {user.logout}>
+                                    Logout
+                                </button>
+                            </div>
+                            <span>
+                                Your name: {user.name}
+                            </span>
+                        </div>
+                    </>
                 }
             </nav>
         </>

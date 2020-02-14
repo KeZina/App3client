@@ -35,5 +35,12 @@
                 }
             }
         }
+        #center-side {
+            background-color: $color-s;
+            span {
+                font-size: 1em;
+                color: $color-m;
+            }
+        }
     }
 }

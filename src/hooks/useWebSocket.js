@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 
 const useWebSocket = () => {
+    // state for no-auth users
     const anonymous = ({
         name: null,
         auth: {
@@ -25,6 +26,7 @@ const useWebSocket = () => {
     const [user, setUser] = useState(anonymous);
     const history = useHistory();
 
+    // temporary account
     const createTemp = e => {
         e.preventDefault();
         ws.send(JSON.stringify({
@@ -33,6 +35,7 @@ const useWebSocket = () => {
         }));
     }
 
+    // permanent account
     const createPerm = e => {
         e.preventDefault();
         ws.send(JSON.stringify({
@@ -42,6 +45,7 @@ const useWebSocket = () => {
         }));
     }
 
+    // if user have permanent account he can login
     const login = e => {
         e.preventDefault();
         ws.send(JSON.stringify({
@@ -51,6 +55,7 @@ const useWebSocket = () => {
         }))
     }
 
+    // if temporary account, account will be deleted, if permanent account, just delete token
     const logout = () => {
         ws.send(JSON.stringify({
             type: 'logout',
@@ -61,6 +66,7 @@ const useWebSocket = () => {
         localStorage.removeItem('token');
     }
 
+    // delete permanent account
     const deleteAcc = () => {
         ws.send(JSON.stringify({
             type: 'deleteAcc',
