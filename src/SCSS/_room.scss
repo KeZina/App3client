@@ -8,6 +8,69 @@
         padding: 1vh 1vw;
         background-color: $color-l;
         border: 2px solid $color-s;
+        .sidebar {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 10vw;
+            &.left {
+                left: 0;
+                text-align: center;
+            }
+            &.right {
+                display: flex;
+                flex-direction: column;
+                right: 0;
+                button {
+                    background-color: $color-s;
+                    font-size: 1em;
+                    color: $color-l;
+                    border: 2px solid $color-l;
+                    padding: .8em;
+                    margin-bottom: 2vh;
+                    cursor: pointer;
+                }
+            }
+        }
+        h2 {
+            text-align: center;
+            margin: 0 10vw;
+        }
+        .chat {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            left: 11vw;
+            right: 11vw;
+            top: 5vh;
+            bottom: 2vh;
+            .message-container {
+                height: 100%;
+                overflow: auto;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                height: 25vh;
+                input {
+                    background-color: $color-s;
+                    font-size: 1em;
+                    color: $color-l;
+                    padding: .8em;
+                    border: none;
+                    cursor: pointer;
+                }
+                textarea {
+                    height: 100%;
+                    resize: none;
+                    font-size: 1.4em;
+                    font-weight: 600;
+                    padding: 1vh 1vw;
+                    border: 2px solid $color-s;
+                    outline: none;
+                }
+            }
+        }
     }
 
 }

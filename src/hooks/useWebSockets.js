@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import useRouteHandler from './useRouteHandler';
 import useUserHandler from './useUserHandler';
 import useRoomHandler from './useRoomHandler';
 
@@ -22,6 +21,23 @@ const useWebSockets = () => {
 
     // Redirect response to correct hook
     useEffect(() => {
+      // maybe rewrite after
+      ws.onopen = () => {
+        if(localStorage.getItem("token")) {
+          ws.send(JSON.stringify({
+              type: 'checkAuth', 
+              token: localStorage.getItem("token")
+          }));
+        }
+
+        if(localStorage.getItem('roomUrl')) {
+            ws.send(JSON.stringify({
+                type: 'getRoomData', 
+                url: localStorage.getItem('roomUrl')
+            }));
+        }
+      }
+
       ws.onmessage = e => {
         let response = JSON.parse(e.data);
 
@@ -36,7 +52,7 @@ const useWebSockets = () => {
 
     const user = useUserHandler(ws, userResponse);
     const room = useRoomHandler(ws, roomResponse);
-    // useRouterHandler(user, room)
+
     return {
         user, 
         room

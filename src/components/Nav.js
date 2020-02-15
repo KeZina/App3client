@@ -21,16 +21,6 @@ const Nav = () => {
                                     Total rooms:
                                 </span>
                             </div>
-                            {/* move form into room after */}
-                            <form>
-                                <label>
-                                    <span>
-                                        Invite user:
-                                    </span>
-                                    <input type = "text" minLength = "3" />
-                                </label>
-                                <input type = "submit" value = "+" />
-                            </form>
                         </div>
                         <div id = "right-side">
                             <div>

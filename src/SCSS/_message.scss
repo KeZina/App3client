@@ -1,0 +1,19 @@
+@mixin message($color-s, $color-m, $color-l) {
+    #message {
+        min-height: 15em;
+        padding: 1vh 1vw;
+        margin-bottom: 2vh;
+        color: $color-l;
+        background-color: $color-s;
+        span {
+            margin-right: 1vw;
+        }
+        p {
+            width: 100%;
+            min-height: 18vh;
+            color: $color-s;
+            background-color: $color-l;
+            word-wrap: break-word;
+        }
+    }
+}

@@ -29,18 +29,6 @@ const useRoomHandler = (ws, response) => {
     // const leftRoom
 
     useEffect(() => {
-        ws.onopen = () => {
-            if(localStorage.getItem('roomUrl')) {
-
-                ws.send(JSON.stringify({
-                    type: 'getRoomData', 
-                    url: localStorage.getItem('roomUrl')
-                }));
-            }
-        }
-    }, [localStorage.getItem('roomUrl'), ws])
-
-    useEffect(() => {
         let {type, success, name, url, message} = response;
 
         if(success) {

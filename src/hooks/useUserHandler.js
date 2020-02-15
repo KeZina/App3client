@@ -80,18 +80,6 @@ const useUserHandler = (ws, response) => {
         }
     }, [localStorage.getItem('token'), history.location.pathname])
 
-    // check auth on every action
-    useEffect(() => {
-        ws.onopen = () => {
-            if(localStorage.getItem("token")) {
-                ws.send(JSON.stringify({
-                    type: 'checkAuth', 
-                    token: localStorage.getItem("token")
-                }));
-            }
-        }
-    })
-
     // handle server response
     useEffect(() => {
         let {type, auth, token, name, message} = response;

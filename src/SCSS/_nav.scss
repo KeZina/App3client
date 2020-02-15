@@ -48,18 +48,6 @@
                     color: $color-m;
                 }
             }
-            form {
-                input[type = "text"] {
-                    color: $color-s;
-                    border: 2px solid $color-s;
-                }
-                input[type = "submit"] {
-                    background-color: $color-m;
-                    border: 2px solid $color-s;
-                    border-left: none;
-                }
-            }
-
         }
     }
 }

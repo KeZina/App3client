@@ -3,6 +3,7 @@
 @import 'login';
 @import 'rooms';
 @import 'room';
+@import 'message';
 @import 'create-room';
 
 $blue-strong: rgb(2, 70, 97);
@@ -39,6 +40,7 @@ button, a, input {
     @include login($color-s, $color-m, $color-l);
     @include rooms($color-s, $color-m, $color-l);
     @include room($color-s, $color-m, $color-l);
+    @include message($color-s, $color-m, $color-l);
     @include create-room($color-s, $color-m, $color-l);
 }
 
