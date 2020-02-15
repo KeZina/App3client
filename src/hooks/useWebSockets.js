@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useUserHandler from './useUserHandler';
 import useRoomHandler from './useRoomHandler';
+import useMessageHandler from './useMessageHandler';
 
 const useWebSockets = () => {
     const responseFields = {
@@ -13,6 +14,7 @@ const useWebSockets = () => {
     }
     const [userResponse, setUserResponse] = useState(responseFields);
     const [roomResponse, setRoomResponse] = useState(responseFields);
+    const [messageResponse, setMessageResponse] = useState(responseFields);
 
     const [ws, setWs] = useState({});
     useEffect(() => {
@@ -32,10 +34,14 @@ const useWebSockets = () => {
 
         if(localStorage.getItem('roomUrl')) {
             ws.send(JSON.stringify({
-                type: 'getRoomData', 
+                type: 'getRoom', 
                 url: localStorage.getItem('roomUrl')
             }));
         }
+
+        ws.send(JSON.stringify({
+          type: 'getMessage'
+        }))
       }
 
       ws.onmessage = e => {
@@ -45,6 +51,8 @@ const useWebSockets = () => {
           setUserResponse(response);
         } else if(response.handler === 'room') {
           setRoomResponse(response);
+        } else if(response.handler === 'message') {
+          setMessageResponse(response);
         }
 
       }
@@ -52,10 +60,12 @@ const useWebSockets = () => {
 
     const user = useUserHandler(ws, userResponse);
     const room = useRoomHandler(ws, roomResponse);
+    const messages = useMessageHandler(ws, messageResponse, user.name);
 
     return {
         user, 
-        room
+        room,
+        messages
     }
 }
 

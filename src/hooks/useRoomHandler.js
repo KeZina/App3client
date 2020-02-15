@@ -36,7 +36,7 @@ const useRoomHandler = (ws, response) => {
                 setRoom({name, url});
                 localStorage.setItem('roomUrl', url);
                 history.push(`/rooms/${url}`)
-            } else if(type === 'getRoomData') {
+            } else if(type === 'getRoom') {
                 setRoom({name, url})
             } else if(type === 'deleteRoom') {
                 setRoom(initialRoom);

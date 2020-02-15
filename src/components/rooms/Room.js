@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
-import { RoomContext } from '../../context';
+import { RoomContext, MessageContext } from '../../context';
 import Message from './Message';
 
 const Room = () => {
     const room = useContext(RoomContext);
+    const messages = useContext(MessageContext);
+
+    console.log(messages)
 
     return (
         <div className = 'container-1'>
@@ -24,12 +27,9 @@ const Room = () => {
                 <h2>{room.name}</h2>
                 <div className = 'chat'>
                     <div className = 'message-container'>
-                        <Message />
-                        <Message />
-                        <Message />
-                        <Message />
+                        <Message messages = {messages}/>
                     </div>
-                    <form>
+                    <form onSubmit = {messages.send}>
                         <input type = 'submit' value = 'Send message' />
                         <textarea name = 'message'></textarea>
                     </form>
