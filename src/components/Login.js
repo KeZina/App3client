@@ -26,8 +26,11 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if(user.authType()) history.push('/rooms')
-    }, [user.auth])
+        if(user.authType() && history.location.pathname === '/') {
+            history.push('/rooms');
+        }
+    }, [user.authType()])
+
 
     return (
         <div className = 'container-1'>

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
-
-
-const useUserHandler = (ws) => {
+const useUserHandler = (ws, response) => {
     // state for no-auth users
-    const anonymous = ({
+    const initialUser = ({
         name: null,
         auth: {
             temp: false,
@@ -21,7 +19,7 @@ const useUserHandler = (ws) => {
             }
         }
     })
-    const [user, setUser] = useState(anonymous);
+    const [user, setUser] = useState(initialUser);
     const history = useHistory();
 
     // temporary account
@@ -62,6 +60,7 @@ const useUserHandler = (ws) => {
         }))
 
         localStorage.removeItem('token');
+        localStorage.removeItem('roomUrl')
     }
 
     // delete permanent account
@@ -74,12 +73,12 @@ const useUserHandler = (ws) => {
         localStorage.removeItem('token');
     }
 
-    // redirect no-auth users to login
+    // redirect no-auth user
     useEffect(() => {
-        if(!user.authType()) {
+        if(!localStorage.getItem('token')) {
             history.push('/');
         }
-    }, [user.auth, history.location.pathname])
+    }, [localStorage.getItem('token'), history.location.pathname])
 
     // check auth on every action
     useEffect(() => {
@@ -93,46 +92,35 @@ const useUserHandler = (ws) => {
         }
     })
 
-    // handle server response for user
+    // handle server response
     useEffect(() => {
-        ws.onmessage = e => {
-            const data = JSON.parse(e.data);
-            let {type, auth, token, name, message} = data;
-            console.log(data)
-            
-            if(type === 'createUser') {
-                if(auth) {
-                    localStorage.setItem('token', token);
-                    setUser({...user, name, auth});
-                    history.push('/rooms');
-                } else if(!auth){
-                    console.log(message);
+        let {type, auth, token, name, message} = response;
+
+        if(type === 'createUser') {
+            if(auth) {
+                localStorage.setItem('token', token);
+                setUser({...user, name, auth});
+            } else if(!auth){
+                console.log(message);
+            }
+        } else if(type === 'login'){
+            if(auth) {
+                localStorage.setItem('token', token);
+                setUser({...user, name, auth})
+            } else if(!auth) {
+                console.log(message);
+            }
+        } else if(type === 'auth') {
+            if(auth) {
+                setUser({...user, name, auth});
+            } else if(!auth) {
+                if(message === 'jwt expired') {
+                    localStorage.removeItem('token');
                 }
-            } else if(type === 'login'){
-                if(auth) {
-                    localStorage.setItem('token', token);
-                    setUser({...user, name, auth})
-                } else if(!auth) {
-                    console.log(message);
-                }
-            } else if(type === 'auth') {
-                if(auth) {
-                    setUser({...user, name, auth});
-                } else if(!auth) {
-                    if(message === 'jwt expired') {
-                        localStorage.removeItem('token');
-                    }
-                    setUser({...user, ...anonymous});
-                }
+                setUser(initialUser);
             }
         }
-    }, [ws])
-
-
-    // just for debug
-    useEffect(() => {
-        console.log(user)
-    })
+    }, [response])
 
     return {
         createTemp,

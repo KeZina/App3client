@@ -9,9 +9,10 @@ const CreateRoom = () => {
             <div id = 'create-room'>
                 <form onSubmit = {room.createRoom}>
                     <label>
-                        <input type = 'text' minLength = "3" maxLength = "20" />
-                        <input type = 'submit' value = "create" />
+                        <span>Name:</span>
+                        <input name = 'name' type = 'text' minLength = "3" maxLength = "20" />
                     </label>
+                    <input type = 'submit' value = "create" />
                 </form>
             </div>
         </div>

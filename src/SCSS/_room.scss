@@ -1,0 +1,13 @@
+@mixin room($color-s, $color-m, $color-l) {
+    #room {
+        position: relative;
+        top: 3vh;
+        margin: auto;
+        width: 80vw;
+        min-height: 84vh;
+        padding: 1vh 1vw;
+        background-color: $color-l;
+        border: 2px solid $color-s;
+    }
+
+}
