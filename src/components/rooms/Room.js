@@ -8,7 +8,7 @@ const Room = () => {
     const messages = useContext(MessageContext);
 
     const history = useHistory();
-    
+
     const exitRoom = () => {
         localStorage.removeItem('roomUrl');
         history.push('/rooms');
@@ -33,7 +33,7 @@ const Room = () => {
                 <h2>{room.name}</h2>
                 <div className = 'chat'>
                     <div className = 'message-container'>
-                        <Message messages = {messages}/>
+                        <Message messages = {messages.data}/>
                     </div>
                     <form onSubmit = {messages.send}>
                         <input type = 'submit' value = 'Send message' />

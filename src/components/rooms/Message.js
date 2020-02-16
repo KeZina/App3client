@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Message = ({messages}) => {
-    messages.data.sort((a, b) => b.date - a.date);
-    const data = messages.data.map(message => {
+const Message = ({messages = []}) => {
+    messages.sort((a, b) => b.date - a.date);
+    const data = messages.map(message => {
         return {...message, date: `${new Date(+message.date).toLocaleDateString()} ${new Date(+message.date).toLocaleTimeString()}`}
     })
 
@@ -17,8 +17,6 @@ const Message = ({messages}) => {
             </div>
         )
     })
-
-
 }
 
 export default Message;

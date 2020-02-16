@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import useUserHandler from './useUserHandler';
 import useRoomHandler from './useRoomHandler';
 import useMessageHandler from './useMessageHandler';
+import { useHistory } from 'react-router-dom';
 
 const useWebSockets = () => {
+  const history = useHistory();
   const responseFields = {
     type: null, 
     auth: null, 
@@ -17,23 +19,22 @@ const useWebSockets = () => {
   const [messageResponse, setMessageResponse] = useState(responseFields);
 
   const [usersInSite, setUsersInSite] = useState([]);
-  const [roomsInSite, setRoomInSite] = useState([]);
-  const [usersInRoom, setUsersInRoom] = useState([]);
+  const [usersInRooms, setUsersInRooms] = useState(new Map());
 
   const [ws, setWs] = useState({});
   useEffect(() => {
     setWs(new WebSocket('ws://localhost:3003'));
   }, [])
 
-
-
   useEffect(() => {
     // maybe rewrite after
     ws.onopen = () => {
+
       if(localStorage.getItem("token")) {
         ws.send(JSON.stringify({
           type: 'checkAuth',
           name: user.name,
+          roomUrl: localStorage.getItem('roomUrl'),
           token: localStorage.getItem("token")
         }));
       }
@@ -53,7 +54,7 @@ const useWebSockets = () => {
     // Redirect response to correct hook
     ws.onmessage = e => {
       let response = JSON.parse(e.data);
-      console.log(response)
+      // console.log(response)
 
       switch(response.handler) {
         case 'user':
@@ -67,12 +68,32 @@ const useWebSockets = () => {
           return;
         case 'counter':
           if(response.type === 'usersInSite') {
-            setUsersInSite(response.amount)
-          }
+            setUsersInSite(response.content);
+          } 
+          // else if(response.type === 'usersInRooms') {
+          //   setUsersInRooms(new Map(response.content));
+          // }
           return;
       }
     }
   })
+
+  console.log(usersInRooms)
+
+  useEffect(() => {
+    if(ws.readyState) {
+      if(localStorage.getItem('roomUrl')) {
+        ws.send(JSON.stringify({
+          type: 'checkAuth',
+          name: user.name,
+          roomUrl: localStorage.getItem('roomUrl'),
+          token: localStorage.getItem("token")
+        }))
+      }
+    }
+  }, [localStorage.getItem('roomUrl')])
+
+
 
   const user = useUserHandler(ws, userResponse);
   const room = useRoomHandler(ws, roomResponse);

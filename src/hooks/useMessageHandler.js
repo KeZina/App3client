@@ -23,18 +23,9 @@ const useMessageHandler = (ws, response, sender) => {
     }
 
     useEffect(() => {
-        let {type, content, message, success} = response;
-
-        if(success) {
-            if(type === 'createMessage') {
-                setData([...data, content]) 
-            }
-            if(type === 'getMessage') {
-                setData(content);
-            }
-        } else if(!success) {
-            console.log(message)
-        }
+        let {content} = response;
+        
+        setData(content);
     }, [response])
 
     return {

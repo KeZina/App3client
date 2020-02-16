@@ -10,6 +10,7 @@ const useUserHandler = (ws, response) => {
             temp: false,
             perm: false,
         },
+        url: null,
         authType: function() {
             if(this.auth.temp === true) {
                 return 'temp';
@@ -58,6 +59,7 @@ const useUserHandler = (ws, response) => {
             type: 'logout',
             token: localStorage.getItem('token'),
             name: user.name,
+            roomUrl: localStorage.getItem('roomUrl'),
             authType: user.authType()
         }))
 
