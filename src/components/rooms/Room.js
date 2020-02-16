@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { RoomContext, MessageContext } from '../../context';
 import Message from './Message';
 import { useHistory } from 'react-router-dom';
@@ -8,7 +8,11 @@ const Room = () => {
     const messages = useContext(MessageContext);
 
     const history = useHistory();
-    const exitRoom = () => history.push('/rooms');
+    
+    const exitRoom = () => {
+        localStorage.removeItem('roomUrl');
+        history.push('/rooms');
+    }
 
     return (
         <div className = 'container-1'>

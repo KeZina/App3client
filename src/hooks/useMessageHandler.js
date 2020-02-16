@@ -15,6 +15,13 @@ const useMessageHandler = (ws, response, sender) => {
         }))
     }
 
+    const getMessage = () => {
+        ws.send(JSON.stringify({
+            type: 'getMessage',
+            url: localStorage.getItem('roomUrl')
+        }))
+    }
+
     useEffect(() => {
         let {type, content, message, success} = response;
 
@@ -32,6 +39,7 @@ const useMessageHandler = (ws, response, sender) => {
 
     return {
         send,
+        getMessage,
         data
     }
 }

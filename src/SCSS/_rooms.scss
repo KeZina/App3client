@@ -1,87 +1,65 @@
 @mixin rooms($color-s, $color-m, $color-l) {
     %buttons {
+        display: inline-block;
         font: inherit;
-        display: block;
-        margin: auto;
-        margin-top: 14vh;
-        width: 3vw;
-        font-size: 2em;
+        text-align: center;
+        font-size: 1.2em;
+        padding: 1.3vh 1.3vw;
         color: $color-s;
         background-color: $color-m;
         border: 2px solid $color-s;
         transition-duration: .2s;
+        text-decoration: none;
+        cursor: pointer;
     }
     #rooms {
         position: relative;
-        top: 15vh;
+        top: 20vh;
         margin: auto;
-        width: 14vw;
-        min-height: 40vh;
+        width: 20vw;
+        min-height: 15vh;
         padding: 1vh 1vw;
         background-color: $color-l;
         border: 2px solid $color-s;
-        div {
+        .buttons-container {
+            min-height: inherit;
             display:flex;
+            flex-direction: column;
             justify-content: space-between;
+            
             button, a {
                 @extend %buttons;
+            }
+            a:hover {
+                background-color: rgb(97, 255, 150);
+            }
+            button:hover {
+                background-color: rgb(244, 252, 133);
+            }
+        }
+        .room-list {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: -10.2vw;
+            width: 10vw;
+            background-color: $color-l;
+            overflow: auto;
+            a {
+                display: block;
+                border: none;
+                margin-bottom: 1vh;
+                background-color: $color-s;
+                text-align: center;
                 font-size: 1em;
-                width: 46%;
-                margin: 0;
+                color: $color-l;
+                width: 100%;
+                padding: 1vh 0;
                 text-decoration: none;
                 cursor: pointer;
-                &:hover {
-                    color: initial;
-                }
             }
-            :first-child {
-                &:hover {
-                    background-color: rgb(97, 255, 150);
-                }
-            }
-            :nth-child(2) {
-                &:hover {
-                    background-color: rgb(244, 252, 133);
-                }
-            }
-        }
-        h2 {
-            min-height: 6vh;
-            margin: 0;
-            text-align: center;
-            border-bottom: 2px solid $color-s;
-        }
-        h4 {
-            color: $color-s;
-            margin: 0vh;
-            margin-bottom: 1vh;
-            span {
-                color: black;
-                border-bottom: 2px solid black;
-                cursor: pointer;
-            }
-        }
-        form {
-            margin-top: 5vh;
-        }
-        label {
-            h3 {
-                text-align: center;
+            :last-child {
                 margin: 0;
-                padding: 1vh 0; 
-            }
-            input {
-                display: block;
-                width: 100%;
-                height: 2.5vh;
-                margin: auto;
-                border: 2px solid $color-s;
-            }
-        }
-        input[type = "submit"] {
-            @extend %buttons;
-            &:hover {
-                color: initial;
             }
         }
     }

@@ -6,8 +6,6 @@ const Nav = () => {
     const user = useContext(UserContext);
     const usersInSite = useContext(CounterContext);
 
-    console.log(usersInSite)
-
     return (
         <>
             <nav id = "navigation">
@@ -19,9 +17,6 @@ const Nav = () => {
                             <div>
                                 <span>
                                     Total users in site: {usersInSite.length}
-                                </span>
-                                <span>
-                                    Total rooms in site:
                                 </span>
                             </div>
                         </div>
