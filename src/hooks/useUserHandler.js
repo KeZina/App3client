@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const useUserHandler = (ws, response) => {
+    const history = useHistory();
     // state for no-auth users
     const initialUser = ({
         name: null,
@@ -17,10 +18,10 @@ const useUserHandler = (ws, response) => {
             } else {
                 return null;
             }
-        }
+        },
+        path: history.location.pathname
     })
     const [user, setUser] = useState(initialUser);
-    const history = useHistory();
 
     // temporary account
     const createTemp = e => {
@@ -56,6 +57,7 @@ const useUserHandler = (ws, response) => {
         ws.send(JSON.stringify({
             type: 'logout',
             token: localStorage.getItem('token'),
+            name: user.name,
             authType: user.authType()
         }))
 
@@ -67,10 +69,12 @@ const useUserHandler = (ws, response) => {
     const deleteAcc = () => {
         ws.send(JSON.stringify({
             type: 'deleteAcc',
-            token: localStorage.getItem('token')
+            token: localStorage.getItem('token'),
+            name: user.name
         }))
 
         localStorage.removeItem('token');
+        localStorage.removeItem('roomUrl');
     }
 
     // redirect no-auth user
@@ -104,6 +108,7 @@ const useUserHandler = (ws, response) => {
             } else if(!auth) {
                 if(message === 'jwt expired') {
                     localStorage.removeItem('token');
+                    localStorage.removeItem('roomUrl');
                 }
                 setUser(initialUser);
             }

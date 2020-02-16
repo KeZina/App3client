@@ -1,6 +1,5 @@
 @mixin message($color-s, $color-m, $color-l) {
     .message {
-        min-height: 15em;
         padding: 1vh 1vw;
         margin-bottom: 2vh;
         background-color: $color-s;
@@ -9,7 +8,6 @@
             margin-right: 3vw;
         }
         p {
-            // width: 100%;
             min-height: 18vh;
             padding: 1vh 1vw;
             color: $color-s;

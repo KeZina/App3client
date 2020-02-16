@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../context';
+import { UserContext, CounterContext } from '../context';
 
 const Nav = () => {
     const user = useContext(UserContext);
+    const usersInSite = useContext(CounterContext);
+
+    console.log(usersInSite)
 
     return (
         <>
@@ -15,10 +18,10 @@ const Nav = () => {
                         <div id = "center-side">
                             <div>
                                 <span>
-                                    Total users:
+                                    Total users in site: {usersInSite.length}
                                 </span>
                                 <span>
-                                    Total rooms:
+                                    Total rooms in site:
                                 </span>
                             </div>
                         </div>

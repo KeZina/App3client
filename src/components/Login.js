@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context';
 import { useHistory } from 'react-router-dom';
 
-// User can just enter his name and create a temporary account (expires after he logout) or enter name and password and create a permanent account (and reserve his name)
+// User can choose: temporary account (delete after logout), permanent (reserve his name, also there would be email-auth) or login (if already have permanent account).
 const Login = () => {
     const user = useContext(UserContext);
     const history = useHistory();

@@ -6,11 +6,9 @@ const Message = ({messages}) => {
         return {...message, date: `${new Date(+message.date).toLocaleDateString()} ${new Date(+message.date).toLocaleTimeString()}`}
     })
 
-    console.log(data)
-
     return data.map(item => {
         return (
-            <div className = 'message' key = {item.id}>
+            <div className = 'message' key = {Math.round(Math.random() * 1e5)}>
                 <span>Send by: {item.sender}</span>
                 <span>{item.date}</span>
                 <p>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-
 const useMessageHandler = (ws, response, sender) => {
     const [data, setData] = useState([]);
 
@@ -11,13 +10,13 @@ const useMessageHandler = (ws, response, sender) => {
             type: 'createMessage',
             content: e.target.message.value,
             date: Date.now(),
-            sender
+            sender,
+            url: localStorage.getItem('roomUrl')
         }))
     }
 
     useEffect(() => {
         let {type, content, message, success} = response;
-        console.log(response)
 
         if(success) {
             if(type === 'createMessage') {

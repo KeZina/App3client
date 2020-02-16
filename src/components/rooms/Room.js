@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { RoomContext, MessageContext } from '../../context';
 import Message from './Message';
+import { useHistory } from 'react-router-dom';
 
 const Room = () => {
     const room = useContext(RoomContext);
     const messages = useContext(MessageContext);
 
-    console.log(messages)
+    const history = useHistory();
+    const exitRoom = () => history.push('/rooms');
 
     return (
         <div className = 'container-1'>
@@ -17,7 +19,7 @@ const Room = () => {
                     </h3>
                 </div>
                 <div className = 'sidebar right'>
-                    <button>
+                    <button onClick = {exitRoom}>
                         Exit room
                     </button>
                     <button>
