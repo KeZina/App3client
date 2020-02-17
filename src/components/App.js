@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { UserContext, RoomContext, MessageContext, CounterContext } from '../context';
+import Notification from './Notification';
 import Nav from './Nav';
 import Login from './Login';
 import Rooms from './rooms/Rooms';
@@ -16,6 +17,10 @@ const App = () => {
       <RoomContext.Provider value = {room}>
         <MessageContext.Provider value = {messages}>
           <CounterContext.Provider value = {counter}>
+            {
+              room.notification.exists &&
+              <Notification />
+            }
             <Nav />
             <Switch>
               <Route exact path = '/' component = {Login} />

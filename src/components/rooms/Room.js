@@ -1,17 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { RoomContext, MessageContext, CounterContext } from '../../context';
 import Message from './Message';
 
 const Room = () => {
+    const [listVisible, setListVisible] = useState(false);
+    const handleList = () => setListVisible(!listVisible);
+
     const room = useContext(RoomContext);
     const messages = useContext(MessageContext);
     const counter = useContext(CounterContext);
 
-    const usersInRooms = counter.usersInRooms[localStorage.getItem('roomUrl')];
+    const usersInSite = counter.usersInSite;
 
+    // const usersInSiteList = usersInSite && Object.entries(usersInSite).map(user => {
+    //     console.log(user)
+    //     return (
+    //         <span onClick = {() => room.inviteUser(user[1])}>
+    //             {user[0]}
+    //         </span>
+    //     )
+    // })
+
+    const usersInSiteList = usersInSite.map(user => {
+        return (
+            <span key = {user.name} onClick = {() => room.inviteUser(user.name)}>
+                {user.name}
+            </span>
+        )
+    })
+    
+
+    const usersInRooms = counter && counter.usersInRooms[localStorage.getItem('roomUrl')];
     const usersInRoomsList = usersInRooms && usersInRooms.map(user => {
         return (
-            <span>
+            <span key = {user}>
                 {user}
             </span>
         )
@@ -23,7 +45,6 @@ const Room = () => {
                 <div className = 'sidebar left'>
                     <h3>
                         Users:
-
                     </h3>
                     <div>
                         {usersInRoomsList}
@@ -33,10 +54,19 @@ const Room = () => {
                     <button onClick = {room.exitRoom}>
                         Exit room
                     </button>
-                    <button>
+                    <button onClick = {handleList}>
                         Invite user
                     </button>
                 </div>
+                {
+                    listVisible &&
+                    <div className = 'user-list'>
+                        <h3>
+                            Users to invite:
+                        </h3>
+                        {usersInSiteList}
+                    </div>
+                }
                 <h2>{room.name}</h2>
                 <div className = 'chat'>
                     <div className = 'message-container'>

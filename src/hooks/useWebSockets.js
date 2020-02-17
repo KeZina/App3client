@@ -2,10 +2,8 @@ import { useState, useEffect } from 'react';
 import useUserHandler from './useUserHandler';
 import useRoomHandler from './useRoomHandler';
 import useMessageHandler from './useMessageHandler';
-import { useHistory } from 'react-router-dom';
 
 const useWebSockets = () => {
-  const history = useHistory();
   const responseFields = {
     type: null, 
     auth: null, 
@@ -19,7 +17,7 @@ const useWebSockets = () => {
   const [messageResponse, setMessageResponse] = useState(responseFields);
 
   const [counter, setCounter] = useState({
-    usersInSite: [],
+    usersInSite: [{}] ,
     usersInRooms: {}
   })
 
@@ -46,7 +44,6 @@ const useWebSockets = () => {
     // Redirect response to correct hook
     ws.onmessage = e => {
       let response = JSON.parse(e.data);
-      console.log(response)
 
       switch(response.handler) {
         case 'user':

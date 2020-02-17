@@ -9,6 +9,10 @@ const useRoomHandler = (ws, response, user) => {
     }
     const [room, setRoom] = useState(initialRoom);
     const [roomList, setRoomList] = useState([]);
+    const [notification, setNotification] = useState({
+        exists: false,
+        content: null
+    });
 
     const history = useHistory();
 
@@ -20,14 +24,7 @@ const useRoomHandler = (ws, response, user) => {
         }))
     }
 
-    const deleteRoom = () => {
-        ws.send(JSON.stringify({
-            type: 'deleteRoom',
-            roomUrl: localStorage.getItem('roomUrl')
-        }))
-    }
-
-    const getRoom = (roomUrl) => {
+    const getRoom = roomUrl => {
         localStorage.setItem('roomUrl', roomUrl)
         ws.send(JSON.stringify({
             type: 'getRoom',
@@ -53,6 +50,22 @@ const useRoomHandler = (ws, response, user) => {
         history.push('/rooms');
     }
 
+    const inviteUser = name => {
+        ws.send(JSON.stringify({
+            type: 'inviteUser',
+            name,
+            path: localStorage.getItem('roomUrl'),
+            roomUrl: history.location.pathname
+        }))
+    }
+
+    const clearNotification = () => {
+        setNotification({
+            exists: false,
+            content: null
+        })
+    }
+
     // after user is auth, get room's data
     useEffect(() => {
         if(user) {
@@ -68,10 +81,10 @@ const useRoomHandler = (ws, response, user) => {
                 }))
             }
         }
-    }, [user])
+    }, [user, localStorage.getItem('roomUrl')])
 
     useEffect(() => {
-        let {type, success, name, list, roomUrl, message} = response;
+        let {type, success, name, list, path, roomUrl, message} = response;
 
         if(success) {
             if(type === 'createRoom') {
@@ -86,6 +99,9 @@ const useRoomHandler = (ws, response, user) => {
                 setRoom(initialRoom);
                 localStorage.removeItem('roomUrl');
                 history.push('/rooms');
+            } else if(type === 'inviteUser') {
+                console.log()
+                setNotification({...notification, exists: true, content: {roomUrl, path}});
             }
         } else if(!success) {
             console.log(message)
@@ -98,9 +114,11 @@ const useRoomHandler = (ws, response, user) => {
         getRoomList,
         getRoom,
         exitRoom,
-        deleteRoom,
+        inviteUser,
         ...room,
-        roomList
+        roomList,
+        notification,
+        clearNotification
     }
 }
 

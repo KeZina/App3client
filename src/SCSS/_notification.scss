@@ -1,0 +1,48 @@
+@mixin notification($color-s, $color-m, $color-l) {
+    #notification {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($color-s, $alpha: .8);
+        z-index: 1;
+        .notification-container {
+            position: relative;
+            top: 20vh;
+            margin: auto;
+            width: 14vw;
+            min-height: 12vh;
+            padding: 1vh 1vw;
+            background-color: $color-l;
+            border: 2px solid $color-s;
+            h3 {
+                text-align: center;
+                margin: 0;
+                margin-bottom: 3vh;
+            }
+        }
+        .links {
+            display: flex;
+            justify-content: space-between;
+            a {
+                font: inherit;
+                text-align: center;
+                font-size: 1.2em;
+                padding: 1vh 1vw;
+                color: $color-s;
+                background-color: $color-m;
+                border: 2px solid $color-s;
+                transition-duration: .2s;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            :nth-child(1):hover {
+                background-color: rgb(97, 255, 150);
+            }
+            :nth-child(2):hover {
+                background-color: rgb(244, 252, 133);
+            }
+        }
+    }
+}

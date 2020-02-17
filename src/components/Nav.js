@@ -5,7 +5,7 @@ import { UserContext, CounterContext } from '../context';
 const Nav = () => {
     const user = useContext(UserContext);
     const counter = useContext(CounterContext);
-    
+
     return (
         <>
             <nav id = "navigation">

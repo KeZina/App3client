@@ -1,4 +1,5 @@
 @import 'containers';
+@import 'notification';
 @import 'nav';
 @import 'login';
 @import 'rooms';
@@ -36,6 +37,7 @@ button, a, input {
 
 @mixin general($color-s, $color-m, $color-l) {
     @include containers($color-s, $color-m, $color-l);
+    @include notification($color-s, $color-m, $color-l);
     @include nav($color-s, $color-m, $color-l);
     @include login($color-s, $color-m, $color-l);
     @include rooms($color-s, $color-m, $color-l);
