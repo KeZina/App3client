@@ -14,8 +14,19 @@
             bottom: 0;
             width: 10vw;
             &.left {
-                left: 0;
+                left: .5vw;
                 text-align: center;
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 3vh;
+                    span {
+                        background-color: $color-m;
+                        color: $color-s;
+                        padding: .5vh .2vw;
+                        margin-bottom: 1vw;
+                    }
+                }
             }
             &.right {
                 display: flex;

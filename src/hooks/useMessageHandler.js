@@ -11,14 +11,14 @@ const useMessageHandler = (ws, response, sender) => {
             content: e.target.message.value,
             date: Date.now(),
             sender,
-            url: localStorage.getItem('roomUrl')
+            roomUrl: localStorage.getItem('roomUrl')
         }))
     }
 
     const getMessage = () => {
         ws.send(JSON.stringify({
             type: 'getMessage',
-            url: localStorage.getItem('roomUrl')
+            roomUrl: localStorage.getItem('roomUrl')
         }))
     }
 

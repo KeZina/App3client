@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { RoomContext, MessageContext } from '../../context';
+
 const Rooms = () => {
     const [listVisible, setListVisible] = useState(false);
     const room = useContext(RoomContext);
@@ -10,16 +11,16 @@ const Rooms = () => {
         setListVisible(true);
         room.getRoomList();
     }
-    // const enterRoom = url => room.getRoom(url);
-    const enterRoom = url => {
-        room.getRoom(url);
-        messages.getMessage(url);
-    }
 
+    const enterRoom = roomUrl => {
+        room.getRoom(roomUrl);
+        messages.getMessage(roomUrl);
+    }
+    
     const roomList = room.roomList.map(room => {
-        let url = room.url;
+        let roomUrl = room.roomUrl;
         return (
-            <Link  to = {`/rooms/${room.url}`} key = {room.url} id = {room.url} onClick = {() => enterRoom(url)} >
+            <Link  to = {`/rooms/${room.roomUrl}`} key = {room.roomUrl} id = {room.roomUrl} onClick = {() => enterRoom(roomUrl)} >
                 {room.name}
             </Link>
         )

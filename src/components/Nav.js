@@ -4,8 +4,8 @@ import { UserContext, CounterContext } from '../context';
 
 const Nav = () => {
     const user = useContext(UserContext);
-    const usersInSite = useContext(CounterContext);
-
+    const counter = useContext(CounterContext);
+    
     return (
         <>
             <nav id = "navigation">
@@ -16,7 +16,7 @@ const Nav = () => {
                         <div id = "center-side">
                             <div>
                                 <span>
-                                    Total users in site: {usersInSite.length}
+                                    Total users in site: {counter.usersInSite.length}
                                 </span>
                             </div>
                         </div>

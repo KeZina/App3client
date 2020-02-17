@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-const useRoomHandler = (ws, response) => {
+const useRoomHandler = (ws, response, user) => {
     const initialRoom = {
         name: null,
         url: null
@@ -23,15 +23,16 @@ const useRoomHandler = (ws, response) => {
     const deleteRoom = () => {
         ws.send(JSON.stringify({
             type: 'deleteRoom',
-            url: localStorage.getItem('roomUrl')
+            roomUrl: localStorage.getItem('roomUrl')
         }))
     }
 
-    const getRoom = (url) => {
-        localStorage.setItem('roomUrl', url)
+    const getRoom = (roomUrl) => {
+        localStorage.setItem('roomUrl', roomUrl)
         ws.send(JSON.stringify({
-            type: 'getRoom', 
-            url: url
+            type: 'getRoom',
+            user,
+            roomUrl
         }));
     }
 
@@ -41,18 +42,44 @@ const useRoomHandler = (ws, response) => {
         }))
     }
 
-    // const leftRoom
+    const exitRoom = () => {
+        ws.send(JSON.stringify({
+            type: 'exitRoom',
+            user,
+            roomUrl: localStorage.getItem('roomUrl')
+        }))
+
+        localStorage.removeItem('roomUrl');
+        history.push('/rooms');
+    }
+
+    // after user is auth, get room's data
+    useEffect(() => {
+        if(user) {
+            if(localStorage.getItem('roomUrl')) {
+                ws.send(JSON.stringify({
+                    type: 'getRoom',
+                    roomUrl: localStorage.getItem('roomUrl'),
+                    user
+                }));
+                ws.send(JSON.stringify({
+                    type: 'getMessage',
+                    roomUrl: localStorage.getItem('roomUrl')
+                }))
+            }
+        }
+    }, [user])
 
     useEffect(() => {
-        let {type, success, name, list, url, message} = response;
+        let {type, success, name, list, roomUrl, message} = response;
 
         if(success) {
             if(type === 'createRoom') {
-                setRoom({name, url});
-                localStorage.setItem('roomUrl', url);
-                history.push(`/rooms/${url}`)
+                setRoom({name, roomUrl});
+                localStorage.setItem('roomUrl', roomUrl);
+                history.push(`/rooms/${roomUrl}`)
             } else if(type === 'getRoom') {
-                setRoom({name, url})
+                setRoom({name, roomUrl})
             } else if(type === 'getRoomList') {
                 setRoomList(list);
             } else if(type === 'deleteRoom') {
@@ -70,6 +97,7 @@ const useRoomHandler = (ws, response) => {
         createRoom,
         getRoomList,
         getRoom,
+        exitRoom,
         deleteRoom,
         ...room,
         roomList

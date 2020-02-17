@@ -18,8 +18,13 @@ const useWebSockets = () => {
   const [roomResponse, setRoomResponse] = useState(responseFields);
   const [messageResponse, setMessageResponse] = useState(responseFields);
 
-  const [usersInSite, setUsersInSite] = useState([]);
-  const [usersInRooms, setUsersInRooms] = useState(new Map());
+  const [counter, setCounter] = useState({
+    usersInSite: [],
+    usersInRooms: {}
+  })
+
+  // const [usersInSite, setUsersInSite] = useState([]);
+  // const [usersInRooms, setUsersInRooms] = useState(new Map());
 
   const [ws, setWs] = useState({});
   useEffect(() => {
@@ -27,9 +32,7 @@ const useWebSockets = () => {
   }, [])
 
   useEffect(() => {
-    // maybe rewrite after
     ws.onopen = () => {
-
       if(localStorage.getItem("token")) {
         ws.send(JSON.stringify({
           type: 'checkAuth',
@@ -38,23 +41,12 @@ const useWebSockets = () => {
           token: localStorage.getItem("token")
         }));
       }
-
-      if(localStorage.getItem('roomUrl')) {
-        ws.send(JSON.stringify({
-          type: 'getRoom', 
-          url: localStorage.getItem('roomUrl')
-        }));
-        ws.send(JSON.stringify({
-          type: 'getMessage',
-          url: localStorage.getItem('roomUrl')
-        }))
-      }
     }
 
     // Redirect response to correct hook
     ws.onmessage = e => {
       let response = JSON.parse(e.data);
-      // console.log(response)
+      console.log(response)
 
       switch(response.handler) {
         case 'user':
@@ -68,42 +60,24 @@ const useWebSockets = () => {
           return;
         case 'counter':
           if(response.type === 'usersInSite') {
-            setUsersInSite(response.content);
-          } 
-          // else if(response.type === 'usersInRooms') {
-          //   setUsersInRooms(new Map(response.content));
-          // }
+              setCounter({...counter, usersInSite: response.content});
+          } else if(response.type === 'usersInRooms') {
+              setCounter({...counter, usersInRooms: response.content})
+          }
           return;
       }
     }
   })
 
-  console.log(usersInRooms)
-
-  useEffect(() => {
-    if(ws.readyState) {
-      if(localStorage.getItem('roomUrl')) {
-        ws.send(JSON.stringify({
-          type: 'checkAuth',
-          name: user.name,
-          roomUrl: localStorage.getItem('roomUrl'),
-          token: localStorage.getItem("token")
-        }))
-      }
-    }
-  }, [localStorage.getItem('roomUrl')])
-
-
-
   const user = useUserHandler(ws, userResponse);
-  const room = useRoomHandler(ws, roomResponse);
+  const room = useRoomHandler(ws, roomResponse, user.name);
   const messages = useMessageHandler(ws, messageResponse, user.name);
 
   return {
       user, 
       room,
       messages,
-      usersInSite
+      counter
   }
 }
 

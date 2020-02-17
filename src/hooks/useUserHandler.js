@@ -111,6 +111,7 @@ const useUserHandler = (ws, response) => {
                 if(message === 'jwt expired') {
                     localStorage.removeItem('token');
                     localStorage.removeItem('roomUrl');
+                    history.push('/');
                 }
                 setUser(initialUser);
             }

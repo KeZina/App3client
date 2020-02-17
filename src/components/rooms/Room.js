@@ -1,18 +1,21 @@
-import React, { useContext, useEffect } from 'react';
-import { RoomContext, MessageContext } from '../../context';
+import React, { useContext } from 'react';
+import { RoomContext, MessageContext, CounterContext } from '../../context';
 import Message from './Message';
-import { useHistory } from 'react-router-dom';
 
 const Room = () => {
     const room = useContext(RoomContext);
     const messages = useContext(MessageContext);
+    const counter = useContext(CounterContext);
 
-    const history = useHistory();
+    const usersInRooms = counter.usersInRooms[localStorage.getItem('roomUrl')];
 
-    const exitRoom = () => {
-        localStorage.removeItem('roomUrl');
-        history.push('/rooms');
-    }
+    const usersInRoomsList = usersInRooms && usersInRooms.map(user => {
+        return (
+            <span>
+                {user}
+            </span>
+        )
+    })
 
     return (
         <div className = 'container-1'>
@@ -20,10 +23,14 @@ const Room = () => {
                 <div className = 'sidebar left'>
                     <h3>
                         Users:
+
                     </h3>
+                    <div>
+                        {usersInRoomsList}
+                    </div>
                 </div>
                 <div className = 'sidebar right'>
-                    <button onClick = {exitRoom}>
+                    <button onClick = {room.exitRoom}>
                         Exit room
                     </button>
                     <button>

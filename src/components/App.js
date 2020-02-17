@@ -9,13 +9,13 @@ import useWebSockets from '../hooks/useWebSockets';
 import CreateRoom from './rooms/CreateRoom';
 
 const App = () => {
-  const { user, room, messages, usersInSite } = useWebSockets();
+  const { user, room, messages, counter } = useWebSockets();
 
   return (
     <UserContext.Provider value = {user}>
       <RoomContext.Provider value = {room}>
         <MessageContext.Provider value = {messages}>
-          <CounterContext.Provider value = {usersInSite}>
+          <CounterContext.Provider value = {counter}>
             <Nav />
             <Switch>
               <Route exact path = '/' component = {Login} />
